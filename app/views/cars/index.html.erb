@@ -1,6 +1,6 @@
 <h2>Cars Listing</h2>
 
-  <table id = "car_table">
+  <table id = "car_table" border = '1'>
     <thead>
     <tr>
       <th>Make</th>
@@ -12,13 +12,15 @@
     </thead>
 
     <tbody>
-    <% @car.each do |car| %>
+    <% @cars.each do |car| %>
       <tr>
         <td><%= car.make %></td>
         <td><%= car.model %></td>
         <td><%= car.year %></td>
-        <td>$<%= car.price %></td>
+        <td><%= number_to_currency(car.price) %></td>
+        <td><%= link_to 'Edit Car' , edit_car_path(car) %></td>
       </tr>
+
     <% end %>
     </tbody>
   </table>

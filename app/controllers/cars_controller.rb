@@ -1,18 +1,22 @@
 class CarsController < ApplicationController
   def index
-  @car = Car.all
+  @cars = Car.all
+  end
+
+  def show
+
   end
 
   def new
-  @car = Car.new
+  @cars = Car.new
   end
 
   def create
-    @car = Car.new(car_params)
+    @cars = Car.new(car_params)
 
     respond_to do |format|
-      if @car.save
-        format.html {redirect_to root_path, notice: "#{@car.year} #{@car.make} #{@car.model} $#{@car.price} has been created"}
+      if @cars.save
+        format.html {redirect_to root_path, notice: "#{@cars.year} #{@cars.make} #{@cars.model} has been created"}
       else
         format.html { render :new }
       end
@@ -22,14 +26,30 @@ class CarsController < ApplicationController
     #   notice: create_message
   end
 
+  def edit
+    @cars = Car.find(params[:id])
+  end
+
+  def update
+     @car = Car.find(params[:id])
+     @car.update(car_params)
+
+       update_message = "#{@car.year} #{@car.make} #{@car.model} has been updated"
+       redirect_to root_path,
+       notice: update_message
+     end
+  #   # create_message = "#{@car.year} #{@car.make} #{@car.model} #{@car.price} has been created"
+  #   # redirect_to root_path,
+  #   #   notice: create_message
+   end
+
   def car_params
     params.require(:car).permit(:make, :model, :year, :price)
   end
-end
 
-def table
 
-end
+
+# GET /cars/1/edit
 
 
 # def create
